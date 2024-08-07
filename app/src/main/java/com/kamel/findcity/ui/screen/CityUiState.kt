@@ -8,7 +8,9 @@ data class CityUiState(
     val isLoading: Boolean = false,
     val error: String = "",
     val cities: List<CityDetailUiState> = emptyList(),
+    val filteredCity: List<CityDetailUiState> = emptyList(),
     val prefix: String = "",
+    val isNoMatchFoundSearch: Boolean = false,
 )
 
 @Immutable
