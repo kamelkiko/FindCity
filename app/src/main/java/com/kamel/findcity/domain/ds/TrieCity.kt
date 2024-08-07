@@ -9,7 +9,6 @@ import javax.inject.Inject
  * Prefix Matching: Perfectly suits the requirement of prefix-based searching for city names.
  * Scalability: Handles large datasets (200k+ entries) efficiently without compromising on performance.
  */
-
 class TrieCity @Inject constructor() : Trie<City> {
     private val root = TrieNodeCity()
 
@@ -18,9 +17,11 @@ class TrieCity @Inject constructor() : Trie<City> {
      * Each character of the city's name is added as a node in the Trie.
      */
     override fun insert(key: String, value: City) {
-        key.fold(root) { node, char ->
-            node.children[char] ?: TrieNodeCity().also { node.children[char] = it }
-        }.cities.add(value)
+        var node = root
+        for (char in value.name.lowercase()) {
+            node = node.children.getOrPut(char) { TrieNodeCity() }
+            node.cities.add(value)
+        }
     }
 
 
@@ -28,9 +29,12 @@ class TrieCity @Inject constructor() : Trie<City> {
      * Searches for cities that match the given prefix.
      * Traverses the Trie based on the prefix and returns the list of matching cities.
      */
-    override fun search(key: String): List<City> {
-        return key.lowercase().fold(root) { node, char ->
-            node.children[char] ?: throw NotFoundException("Oops, no matches found")
-        }.cities
+    override suspend fun search(key: String): List<City> {
+        var node = root
+        for (char in key.lowercase()) {
+            node = node.children[char] ?: throw NotFoundException("Oops, no matches found")
+        }
+        return node.cities
     }
+
 }
