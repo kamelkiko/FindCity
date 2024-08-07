@@ -32,9 +32,12 @@ class TrieCity @Inject constructor() : Trie<City> {
     override suspend fun search(key: String): List<City> {
         var node = root
         for (char in key.lowercase()) {
-            node = node.children[char] ?: throw NotFoundException("Oops, no matches found")
+            node = node.children[char] ?: throw NotFoundException(NO_RESULT_ERROR_MESSAGE)
         }
         return node.cities
     }
 
+    companion object {
+        private const val NO_RESULT_ERROR_MESSAGE = "Oops, no matches found"
+    }
 }
