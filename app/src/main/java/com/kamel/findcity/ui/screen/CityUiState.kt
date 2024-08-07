@@ -11,6 +11,7 @@ data class CityUiState(
     val filteredCity: List<CityDetailUiState> = emptyList(),
     val prefix: String = "",
     val isNoMatchFoundSearch: Boolean = false,
+    val isSuccess: Boolean = false,
 )
 
 @Immutable
