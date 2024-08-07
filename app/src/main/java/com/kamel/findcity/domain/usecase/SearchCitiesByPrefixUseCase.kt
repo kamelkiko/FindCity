@@ -1,10 +1,10 @@
 package com.kamel.findcity.domain.usecase
 
-import com.kamel.findcity.domain.repository.CityRepository
+import com.kamel.findcity.domain.ds.TrieCity
 import javax.inject.Inject
 
 class SearchCitiesByPrefixUseCase @Inject constructor(
-    private val cityRepository: CityRepository
+    private val trieCity: TrieCity
 ) {
-    operator fun invoke(prefix: String) = cityRepository.searchCityByPrefix(prefix)
+    operator fun invoke(prefix: String) = trieCity.search(prefix)
 }

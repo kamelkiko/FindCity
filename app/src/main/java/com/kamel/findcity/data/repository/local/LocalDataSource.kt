@@ -4,5 +4,4 @@ import com.kamel.findcity.data.local.model.CityDto
 
 interface LocalDataSource {
     suspend fun getAllCities(): List<CityDto>
-    fun searchCityByPrefix(prefix: String): List<CityDto>
 }
