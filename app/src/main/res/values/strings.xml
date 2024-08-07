@@ -4,4 +4,5 @@
     <string name="coordinates">Coordinates: %1$s, %2$s</string>
     <string name="search_not_found">Search not found!</string>
     <string name="please_wait_we_process_your_data">Please wait we process your data</string>
+    <string name="error">Error!</string>
 </resources>
