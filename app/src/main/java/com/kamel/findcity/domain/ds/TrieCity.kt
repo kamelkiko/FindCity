@@ -1,6 +1,7 @@
 package com.kamel.findcity.domain.ds
 
 import com.kamel.findcity.domain.entity.City
+import com.kamel.findcity.domain.util.NotFoundException
 import javax.inject.Inject
 
 /** Why Trie?
@@ -29,7 +30,7 @@ class TrieCity @Inject constructor() : Trie<City> {
      */
     override fun search(key: String): List<City> {
         return key.lowercase().fold(root) { node, char ->
-            node.children[char] ?: return emptyList()
+            node.children[char] ?: throw NotFoundException("Oops, no matches found")
         }.cities
     }
 }
