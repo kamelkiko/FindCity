@@ -5,10 +5,10 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CityDto(
-    val country: String,
-    val name: String,
+    val country: String? = null,
+    val name: String? = null,
     @SerialName("_id")
-    val id: Int,
+    val id: Int? = null,
     @SerialName("coord")
-    val coordinate: CoordinateDto
+    val coordinate: CoordinateDto? = null,
 )

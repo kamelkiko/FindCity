@@ -4,5 +4,5 @@ data class City(
     val country: String,
     val name: String,
     val id: Int,
-    val coordinate: Coordinate
+    val coordinate: Coordinate,
 )
