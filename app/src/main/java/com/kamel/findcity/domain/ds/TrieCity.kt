@@ -9,17 +9,17 @@ import javax.inject.Inject
  * Scalability: Handles large datasets (200k+ entries) efficiently without compromising on performance.
  */
 
-class TrieCity @Inject constructor() : Trie<City> {
+class TrieCity @Inject constructor() : Trie<List<City>> {
     private val root = TrieNodeCity()
 
     /**
      * Inserts a city into the Trie.
      * Each character of the city's name is added as a node in the Trie.
      */
-    override fun insert(key: String, value: City) {
+    override fun insert(key: String, values: List<City>) {
         key.fold(root) { node, char ->
             node.children[char] ?: TrieNodeCity().also { node.children[char] = it }
-        }.cities.add(value)
+        }.cities.addAll(values)
     }
 
 
