@@ -6,5 +6,5 @@ import javax.inject.Inject
 class SearchCitiesByPrefixUseCase @Inject constructor(
     private val trieCity: TrieCity
 ) {
-    operator fun invoke(prefix: String) = trieCity.search(prefix)
+    operator fun invoke(prefix: String) = trieCity.search(prefix).sortedBy { it.name }
 }

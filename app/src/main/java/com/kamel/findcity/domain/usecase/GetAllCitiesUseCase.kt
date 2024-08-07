@@ -6,5 +6,5 @@ import javax.inject.Inject
 class GetAllCitiesUseCase @Inject constructor(
     private val cityRepository: CityRepository
 ) {
-    suspend operator fun invoke() = cityRepository.getAllCities()
+    suspend operator fun invoke() = cityRepository.getAllCities().sortedBy { it.name }
 }
