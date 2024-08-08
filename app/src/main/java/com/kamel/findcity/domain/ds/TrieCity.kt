@@ -17,10 +17,10 @@ class TrieCity @Inject constructor() : Trie<City> {
      * Each character of the city's name is added as a node in the Trie.
      */
     override fun insert(key: String, value: City) {
-        var node = root
-        for (char in value.name.lowercase()) {
-            node = node.children.getOrPut(char) { TrieNodeCity() }
-            node.cities.add(value)
+        var currentNode = root
+        value.name.lowercase().forEach { char ->
+            currentNode = currentNode.children.getOrPut(char) { TrieNodeCity() }
+            currentNode.cities.add(value)
         }
     }
 
@@ -30,14 +30,14 @@ class TrieCity @Inject constructor() : Trie<City> {
      * Traverses the Trie based on the prefix and returns the list of matching cities.
      */
     override suspend fun search(key: String): List<City> {
-        var node = root
-        for (char in key.lowercase()) {
-            node = node.children[char] ?: throw NotFoundException(NO_RESULT_ERROR_MESSAGE)
+        var currentNode = root
+        key.lowercase().forEach { char ->
+            currentNode = currentNode.children[char] ?: throw NotFoundException(NO_RESULT_ERROR)
         }
-        return node.cities
+        return currentNode.cities
     }
 
     companion object {
-        private const val NO_RESULT_ERROR_MESSAGE = "Oops, no matches found"
+        private const val NO_RESULT_ERROR = "Oops, no matches found"
     }
 }
