@@ -1,6 +1,5 @@
 package com.kamel.findcity.domain.trie
 
-import android.util.Log
 import com.kamel.findcity.domain.entity.City
 import com.kamel.findcity.domain.util.NotFoundException
 import javax.inject.Inject
@@ -19,12 +18,10 @@ class TrieCity @Inject constructor() : Trie<City> {
      */
     override suspend fun insert(key: String, value: City) {
         var currentNode = root
-        key.lowercase().forEach { char ->
+        key.forEach { char ->
             currentNode = currentNode.children.getOrPut(char) { TrieNodeCity() }
             currentNode.cities.add(value)
         }
-        Log.d("KAMELOO", "root : " + root.cities.toString())
-        Log.d("KAMELOO", currentNode.cities.toString())
     }
 
 

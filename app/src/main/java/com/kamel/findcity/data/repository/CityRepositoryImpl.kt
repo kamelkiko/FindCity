@@ -2,9 +2,9 @@ package com.kamel.findcity.data.repository
 
 import com.kamel.findcity.data.local.mapper.toEntity
 import com.kamel.findcity.data.repository.local.LocalDataSource
-import com.kamel.findcity.domain.trie.TrieCity
 import com.kamel.findcity.domain.entity.City
 import com.kamel.findcity.domain.repository.CityRepository
+import com.kamel.findcity.domain.trie.TrieCity
 import javax.inject.Inject
 
 class CityRepositoryImpl @Inject constructor(
@@ -22,6 +22,6 @@ class CityRepositoryImpl @Inject constructor(
     }
 
     override suspend fun searchCityByPrefix(prefix: String): List<City> {
-        return trieCity.search(prefix)
+        return trieCity.search(prefix.lowercase())
     }
 }
