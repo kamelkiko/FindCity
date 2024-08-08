@@ -16,7 +16,7 @@ demonstrate problem-solving skills, UX judgement, and code quality.
 - **Compatibility**: Works with Android 5.+.
 
 Here is a demonstration of the City Finder App:
-[![City Finder App Demo](http://img.youtube.com/vi/VmXdaaTZXYs/0.jpg)](http://www.youtube.com/watch?v=VmXdaaTZXYs)
+[![City Finder App Demo](Youtube)](http://www.youtube.com/watch?v=VmXdaaTZXYs)
 
 ## Technologies Used
 
@@ -64,7 +64,7 @@ data class TrieNodeCity(
 )
 
 interface Trie<Value> {
-    fun insert(key: String, value: Value)
+    suspend fun insert(key: String, value: Value)
 
     suspend fun search(key: String): List<Value>
 }
@@ -76,7 +76,7 @@ class TrieCity @Inject constructor() : Trie<City> {
      * Inserts a city into the Trie.
      * Each character of the city's name is added as a node in the Trie.
      */
-    override fun insert(key: String, value: City) {
+    override suspend fun insert(key: String, value: City) {
         var currentNode = root
         value.name.lowercase().forEach { char ->
             currentNode = currentNode.children.getOrPut(char) { TrieNodeCity() }

@@ -1,4 +1,4 @@
-package com.kamel.findcity.ui.screen
+package com.kamel.findcity.ui.screen.city
 
 import androidx.compose.runtime.Immutable
 import com.kamel.findcity.domain.entity.City
