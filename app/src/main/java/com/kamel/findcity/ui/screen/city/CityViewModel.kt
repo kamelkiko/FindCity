@@ -90,7 +90,7 @@ class CityViewModel @Inject constructor(
             )
         }
         tryToExecute(
-            function = { searchCity(name) },
+            function = { searchCity(name.trim()) },
             onSuccess = ::onSearchForCityByNameSuccess,
             onError = ::handleError
         )
