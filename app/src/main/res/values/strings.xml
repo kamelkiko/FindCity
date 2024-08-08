@@ -1,3 +1,10 @@
 <resources>
     <string name="app_name">Find City</string>
+    <string name="search_for_a_city">Search for a city</string>
+    <string name="coordinates">Coordinates: %1$s, %2$s</string>
+    <string name="search_not_found">Search not found!</string>
+    <string name="please_wait_we_process_your_data">Please wait we process your data</string>
+    <string name="error">Error!</string>
+    <string name="search_icon">Search icon</string>
+    <string name="clear_icon">Clear icon</string>
 </resources>
