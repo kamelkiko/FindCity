@@ -2,7 +2,9 @@
 
 ## Overview
 
-The City Finder App is an Android application built with Kotlin and Jetpack Compose. It provides a responsive and efficient interface to search through a list of cities. The app is designed to demonstrate problem-solving skills, UX judgement, and code quality. 
+The City Finder App is an Android application built with Kotlin and Jetpack Compose. It provides a
+responsive and efficient interface to search through a list of cities. The app is designed to
+demonstrate problem-solving skills, UX judgement, and code quality.
 
 ## Features
 
@@ -13,6 +15,9 @@ The City Finder App is an Android application built with Kotlin and Jetpack Comp
 - **Screen Rotation**: Supports screen rotation without losing the state.
 - **Compatibility**: Works with Android 5.+.
 
+Here is a demonstration of the City Finder App:
+[![City Finder App Demo](http://img.youtube.com/vi/VmXdaaTZXYs/0.jpg)](http://www.youtube.com/watch?v=VmXdaaTZXYs)
+
 ## Technologies Used
 
 - **Kotlin**: Primary language for development.
@@ -22,25 +27,35 @@ The City Finder App is an Android application built with Kotlin and Jetpack Comp
 
 ## Project Structure
 
-The project follows a clean architecture pattern, ensuring separation of concerns and making the codebase more maintainable and testable. The main layers are:
+The project follows a clean architecture pattern, ensuring separation of concerns and making the
+codebase more maintainable and testable. The main layers are:
 
-- **Presentation Layer**: Contains UI-related code, including Jetpack Compose composables and ViewModels. This layer interacts with the domain layer to display data and handle user interactions.
-- **Domain Layer**: Contains business logic and use cases. It defines the application's core functionality and interacts with the data layer.
-- **Data Layer**: Responsible for data management, including fetching data from local storage or network sources. In this project, it handles loading city data from a JSON file with repository pattern.
+- **Presentation Layer**: Contains UI-related code, including Jetpack Compose composables and
+  ViewModels. This layer interacts with the domain layer to display data and handle user
+  interactions.
+- **Domain Layer**: Contains business logic and use cases. It defines the application's core
+  functionality and interacts with the data layer.
+- **Data Layer**: Responsible for data management, including fetching data from local storage or
+  network sources. In this project, it handles loading city data from a JSON file with repository
+  pattern.
 
 ## Trie Data Structure
 
 ### Why Trie?
 
-A Trie (pronounced as "try") is a tree-like data structure that stores a dynamic set of strings, where the keys are usually strings. Here are the reasons why Trie was used in this project:
+A Trie (pronounced as "try") is a tree-like data structure that stores a dynamic set of strings,
+where the keys are usually strings. Here are the reasons why Trie was used in this project:
 
-- **Efficiency**: Tries provide an efficient way to search for a string prefix, making the search operations faster than linear search.
+- **Efficiency**: Tries provide an efficient way to search for a string prefix, making the search
+  operations faster than linear search.
 - **Prefix Matching**: Perfectly suits the requirement of prefix-based searching for city names.
-- **Scalability**: Handles large datasets (200k+ entries) efficiently without compromising on performance.
+- **Scalability**: Handles large datasets (200k+ entries) efficiently without compromising on
+  performance.
 
 ### Implementation
 
-The Trie structure was used to preprocess the list of cities. This allows quick retrieval of cities based on the input prefix, ensuring a responsive UI even with a large dataset.
+The Trie structure was used to preprocess the list of cities. This allows quick retrieval of cities
+based on the input prefix, ensuring a responsive UI even with a large dataset.
 
 ```kotlin
 data class TrieNodeCity(
