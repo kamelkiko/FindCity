@@ -16,7 +16,7 @@ demonstrate problem-solving skills, UX judgement, and code quality.
 - **Compatibility**: Works with Android 5.+.
 
 Here is a demonstration of the City Finder App:
-[![City Finder App Demo](http://img.youtube.com/vi/VmXdaaTZXYs/0.jpg)](http://www.youtube.com/watch?v=VmXdaaTZXYs)
+[![City Finder App Demo](Youtube)](http://www.youtube.com/watch?v=VmXdaaTZXYs)
 
 ## Technologies Used
 
