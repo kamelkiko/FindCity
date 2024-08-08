@@ -19,7 +19,6 @@ fun FindCityTheme(
     val typography = Typography(
         headline = headline(),
         titleLarge = titleLarge(),
-        title = title(),
         titleMedium = titleMedium(),
         body = body(),
         caption = caption()

@@ -32,17 +32,6 @@ fun titleLarge(): TextStyle {
 }
 
 @Composable
-fun title(): TextStyle {
-    return TextStyle(
-        fontSize = 16.sp,
-        fontFamily = FontFamily(Font(R.font.roboto_medium)),
-        fontWeight = FontWeight.W400,
-        lineHeight = 22.04.sp,
-        textAlign = TextAlign.Center,
-    )
-}
-
-@Composable
 fun titleMedium(): TextStyle {
     return TextStyle(
         fontSize = 14.sp,
