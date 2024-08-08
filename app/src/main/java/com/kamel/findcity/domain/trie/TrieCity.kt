@@ -1,4 +1,4 @@
-package com.kamel.findcity.domain.ds
+package com.kamel.findcity.domain.trie
 
 import com.kamel.findcity.domain.entity.City
 import com.kamel.findcity.domain.util.NotFoundException

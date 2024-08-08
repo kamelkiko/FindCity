@@ -1,4 +1,4 @@
-package com.kamel.findcity.domain.ds
+package com.kamel.findcity.domain.trie
 
 interface Trie<Value> {
     suspend fun insert(key: String, value: Value)
