@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.kamel.findcity.domain.entity.City
 import com.kamel.findcity.domain.usecase.GetAllCitiesUseCase
-import com.kamel.findcity.domain.usecase.SearchCitiesByPrefixUseCase
+import com.kamel.findcity.domain.usecase.SearchCityUseCase
 import com.kamel.findcity.domain.util.JsonFileNotFoundException
 import com.kamel.findcity.domain.util.NotFoundException
 import com.kamel.findcity.domain.util.UnknownErrorException
@@ -22,7 +22,7 @@ import javax.inject.Inject
 @HiltViewModel
 class CityViewModel @Inject constructor(
     private val getAllCities: GetAllCitiesUseCase,
-    private val searchCities: SearchCitiesByPrefixUseCase,
+    private val searchCity: SearchCityUseCase,
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(CityUiState())
@@ -47,24 +47,53 @@ class CityViewModel @Inject constructor(
     }
 
     private fun onFetchAllCitiesSuccess(cities: List<City>) {
+        viewModelScope.launch(Dispatchers.Default) {
+            searchCity.insertCitiesToTrie(cities)
+            _state.update {
+                it.copy(
+                    isLoading = false,
+                    isSuccess = true,
+                    error = "",
+                    cities = cities.map { city -> city.toUiState() },
+                    filteredCity = cities.map { city -> city.toUiState() }
+                )
+            }
+        }
+    }
+
+    fun onPrefixChanged(prefix: String) {
+        _state.update { it.copy(prefix = prefix) }
+        if (prefix.isEmpty()) _state.update {
+            it.copy(
+                filteredCity = state.value.cities,
+                isNoMatchFoundSearch = false,
+                error = "",
+                isSuccess = true
+            )
+        }
+        else searchForCityByName(prefix)
+    }
+
+    fun onClear() {
         _state.update {
             it.copy(
-                isLoading = false,
-                error = "",
-                cities = cities.map { city -> city.toUiState() }
+                prefix = "",
+                filteredCity = state.value.cities,
+                isNoMatchFoundSearch = false,
+                isSuccess = true,
+                error = ""
             )
         }
     }
 
-    fun searchForCityByName(name: String) {
+    private fun searchForCityByName(name: String) {
         _state.update {
             it.copy(
-                isLoading = true,
                 error = ""
             )
         }
         tryToExecute(
-            function = { searchCities.invoke(name) },
+            function = { searchCity.searchCityByPrefix(name) },
             onSuccess = ::onSearchForCityByNameSuccess,
             onError = ::handleError
         )
@@ -75,7 +104,10 @@ class CityViewModel @Inject constructor(
             it.copy(
                 isLoading = false,
                 error = "",
-                cities = cities.map { city -> city.toUiState() }
+                filteredCity = cities.map { city ->
+                    city.toUiState()
+                },
+                isNoMatchFoundSearch = false
             )
         }
     }
@@ -86,7 +118,9 @@ class CityViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        error = error.message.toString()
+                        error = error.message.toString(),
+                        isNoMatchFoundSearch = false,
+                        isSuccess = false
                     )
                 }
             }
@@ -95,7 +129,8 @@ class CityViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        error = error.message.toString()
+                        error = error.message.toString(),
+                        isNoMatchFoundSearch = true
                     )
                 }
             }
@@ -104,7 +139,9 @@ class CityViewModel @Inject constructor(
                 _state.update {
                     it.copy(
                         isLoading = false,
-                        error = error.message.toString()
+                        error = error.message.toString(),
+                        isNoMatchFoundSearch = false,
+                        isSuccess = false
                     )
                 }
             }
