@@ -1,4 +1,4 @@
-package com.kamel.findcity.ui.screen
+package com.kamel.findcity.ui.screen.city
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -47,17 +47,14 @@ class CityViewModel @Inject constructor(
     }
 
     private fun onFetchAllCitiesSuccess(cities: List<City>) {
-        viewModelScope.launch(Dispatchers.Default) {
-            searchCity.insertCitiesToTrie(cities)
-            _state.update {
-                it.copy(
-                    isLoading = false,
-                    isSuccess = true,
-                    error = "",
-                    cities = cities.map { city -> city.toUiState() },
-                    filteredCity = cities.map { city -> city.toUiState() }
-                )
-            }
+        _state.update {
+            it.copy(
+                isLoading = false,
+                isSuccess = true,
+                error = "",
+                cities = cities.map { city -> city.toUiState() },
+                filteredCity = cities.map { city -> city.toUiState() }
+            )
         }
     }
 
@@ -93,7 +90,7 @@ class CityViewModel @Inject constructor(
             )
         }
         tryToExecute(
-            function = { searchCity.searchCityByPrefix(name) },
+            function = { searchCity(name) },
             onSuccess = ::onSearchForCityByNameSuccess,
             onError = ::handleError
         )

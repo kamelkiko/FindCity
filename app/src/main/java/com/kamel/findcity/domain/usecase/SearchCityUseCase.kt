@@ -1,19 +1,14 @@
 package com.kamel.findcity.domain.usecase
 
-import com.kamel.findcity.domain.ds.TrieCity
 import com.kamel.findcity.domain.entity.City
+import com.kamel.findcity.domain.repository.CityRepository
 import javax.inject.Inject
 
 class SearchCityUseCase @Inject constructor(
-    private val trieCity: TrieCity,
+    private val cityRepository: CityRepository,
 ) {
-   suspend fun insertCitiesToTrie(cities: List<City>) {
-        cities.forEach { city ->
-            trieCity.insert(city.name.lowercase(), city)
-        }
-    }
 
-    suspend fun searchCityByPrefix(prefix: String): List<City> {
-        return trieCity.search(prefix.lowercase()).sortedBy { it.name }
+    suspend operator fun invoke(prefix: String): List<City> {
+        return cityRepository.searchCityByPrefix(prefix.lowercase()).sortedBy { it.name }
     }
 }

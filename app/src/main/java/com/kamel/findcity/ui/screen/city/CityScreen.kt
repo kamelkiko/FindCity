@@ -1,4 +1,4 @@
-package com.kamel.findcity.ui.screen
+package com.kamel.findcity.ui.screen.city
 
 import android.content.Intent
 import android.net.Uri
